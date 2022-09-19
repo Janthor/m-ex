@@ -8,9 +8,9 @@ backupall
 
   # Execute LoadRELDAT
   bl  FileName
-  mflr  r3 # Hooks.dat
+  mflr  r3 # ComboMatch.dat
   addi  r4,sp,0x80 # FXStructPointer
-  bl  SymbolName # bmFunction
+  bl  SymbolName # mnFunction
   mflr  r5
   branchl r12, 0x803d709c # Standalone function LoadRELDAT
   mr REG_MEX_DATA, r4
@@ -18,8 +18,8 @@ backupall
   # Find offset to OnBoot:
   lwz REG_FX_ARRAY, 0x80(sp)
   lwz r3, 0xC(REG_MEX_DATA) # FX Table
-  lwz r3, 0x0*4(r3) # Offset to OnBoot
-  add r3, r3, REG_FX_ARRAY # offset from fx array to OnBoot
+  lwz r3, 0x2*4(r3) # Offset to OnLoadMatch
+  add r3, r3, REG_FX_ARRAY # offset from fx array to OnLoadMatch
   mtctr r3
   bctrl 
 
@@ -28,12 +28,12 @@ b EXIT
 
 FileName:
 blrl
-.string "Slippi.dat"
+.string "ComboMatch.dat"
 .align 2
 
 SymbolName:
 blrl
-.string "slpFunction"
+.string "mnFunction"
 .align 2
 
 EXIT:

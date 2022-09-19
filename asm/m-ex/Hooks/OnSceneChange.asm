@@ -11,9 +11,9 @@ backupall
 
   # Execute LoadRELDAT
   bl  FileName
-  mflr  r3 # Hooks.dat
+  mflr  r3 # Addons.dat
   addi  r4,sp,0x80 # FXStructPointer
-  bl  SymbolName # bmFunction
+  bl  SymbolName # hkFunction
   mflr  r5
   branchl r12, 0x803d709c # Standalone function LoadRELDAT
   mr REG_MEX_DATA, r4
@@ -31,7 +31,7 @@ backupall
   # Find offset to OnSceneChange:
   lwz REG_FX_ARRAY, 0x80(sp)
   lwz r3, 0xC(REG_MEX_DATA) # FX Table
-  lwz r3, 0x3*4(r3) # Offset to OnSceneChange
+  lwz r3, 0x0*4(r3) # Offset to OnSceneChange
   add r3, r3, REG_FX_ARRAY # offset from fx array to OnSceneChange
   mtctr r3
   bctrl 
@@ -41,12 +41,12 @@ b EXIT
 
 FileName:
 blrl
-.string "Slippi.dat"
+.string "Addons.dat"
 .align 2
 
 SymbolName:
 blrl
-.string "slpFunction"
+.string "hkFunction"
 .align 2
 
 EXIT:
