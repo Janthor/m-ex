@@ -10,8 +10,7 @@ struct DevText
 {
     int x0;                   // 0x0
     int x4;                   // 0x4
-    int x8;                   // 0x8
-    int xc;                   // 0xc
+    Vec2 scale;               // 0x8
     GXColor bg_color;         // 0x10
     int x14;                  // 0x14
     int x18;                  // 0x18
@@ -54,6 +53,6 @@ void DevelopText_HideBG(DevText *text);
 void DevelopText_StoreTextScale(DevText *text, float x, float y);
 void Develop_DrawSphere(float size, Vec3 *pos1, Vec2 *pos2, GXColor *diffuse, GXColor *ambient);
 
-int *stc_dblevel = R13 + (-0x6C98);
+static int *stc_dblevel = R13 + (-0x6C98);
 
 #endif
