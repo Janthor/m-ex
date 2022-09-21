@@ -54,6 +54,7 @@ LoadRELDAT_local:
 .set  REG_File,27
 .set  REG_Header,26
 .set  REG_mexData,25
+.set Reloc,0x803d7074
 
 backup
 mr  REG_FileName,r3
@@ -70,7 +71,7 @@ mr  REG_Symbol,r5
 #Check if exists
   lwz  REG_mexData,0x80(sp)
   cmpwi REG_mexData,0
-  beq mexPatch_Skip
+  beq FileNotFound
 #Reloc
   mr r3, REG_mexData
   branchl r12,Reloc
@@ -78,6 +79,8 @@ mr  REG_Symbol,r5
   mr  r3,REG_mexData
   mr  r4,REG_Return
   bl  Overload
+
+
 mexPatch_Skip:
 
 #Flush instruction cache so code can be run from this file
@@ -132,6 +135,11 @@ Overload_CheckLoop:
 Overload_Exit:
   blr
 ############################################
+
+FileNotFound:
+restore
+restoreall
+b EXIT
 
 
 FileName:
